@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
 
 function App() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [data, setData] = useState({});
+
+  const handleClick = async () => {};
+
+  const handleTextChange = (e, v) => {
+    setFirstName(e.target.value);
+  };
+
+  async function getTask() {
+    const response = await fetch(
+      "https://jsonplaceholder.typicode.com/todos/1"
+    );
+      console.log('result',response);
+  }
+
+  useEffect(() => {
+    getTask().then();
+  }, []);
+
+  useEffect(() => {
+    console.log("I am listening", firstName);
+  }, [firstName]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <button onClick={handleClick}>Click me for display</button>
+      <input type="text" onChange={(e) => handleTextChange(e, "firstName")} />
+      <div>{firstName}</div>
+      <div>{lastName}</div>
+      <div>{JSON.stringify(data, null, 4)}</div>
+    </>
   );
 }
 
